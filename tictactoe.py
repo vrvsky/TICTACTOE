@@ -20,13 +20,13 @@ def playercharchoice():
         player2_choice = 'x'
     return [player1_choice,player2_choice]
     
-def results(gamefin):
+def results(gamefin,playernumchar):
     if gamefin==1:
         print("Game results in draw")
     elif gamefin==2:
-        print("Player 1 won")
+        print("Player {} won".format(1+playernumchar.index('x')))
     else:
-        print("Player 2 won")
+        print("Player {} won".format(1+playernumchar.index('o')))
 
 def playerpos(playernum):
     position = 0
@@ -35,7 +35,7 @@ def playerpos(playernum):
         position = input()
         if position not in ['1','2','3','4','5','6','7','8','9']:
             print('Please enter valid number in [1-9]')
-        elif game_board[int(position)-1] in l:
+        elif game_board[int(position)-1] in listOfplayerchar:
             print('The position is already filled! ')
             position = 0
     return position
@@ -75,37 +75,27 @@ while play_again!='n':
     game_board = [' ']*9
     os.system('cls')
     #os.system('clear') #[linux]
-    i=0
+    playerNumber=0
     game_finished = 0
-    l = playercharchoice()
+    listOfplayerchar = playercharchoice()
     while game_finished==0:
         os.system('cls')
-        print("Player 1 {} Player 2 {}\n".format(l[0],l[1]))
+        print("Player 1 {} Player 2 {}\n".format(listOfplayerchar[0],listOfplayerchar[1]))
         #os.system('clear') #[linux]
         print_game(game_board)
-        position = playerpos(i)
-        game_board[int(position)-1] = l[i]
-        i = (i+1)%2
+        position = playerpos(playerNumber)
+        game_board[int(position)-1] = listOfplayerchar[playerNumber]
+        playerNumber = (playerNumber+1)%2
         game_finished = game_result(game_board)
     os.system('cls')
     #os.system('clear') #[linux]
-    print("Player 1 {} Player 2 {}\n".format(l[0],l[1]))
+    print("Player 1 {} Player 2 {}\n".format(listOfplayerchar[0],listOfplayerchar[1]))
     print_game(game_board)
-    results(game_finished)
+    results(game_finished,listOfplayerchar)
     play_again = 'p'
     while play_again not in ['y','n']:
         play_again = input("Do you want to play again? Y or N: ")
         play_again = play_again.lower()
         if play_again not in ['y','n']:
             print("Enter either y or n only")
-    
-        
-    
-        
-        
-        
-        
-    
-    
-    
     
